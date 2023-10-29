@@ -1,5 +1,6 @@
 # Ansible
 ansible-doc -l
+ansible-doc [имя модуля]
 
 Инвентарь
 
@@ -62,7 +63,7 @@ ansible_ssh_extra_args
 ansible_ssh_pipelining
 ansible_ssh_executable
 ```
-Привелегии
+Привелегии (sudo)
 ```
 ansible_become
 ansible_become_method
@@ -78,3 +79,20 @@ ansible_python_interpreter
 ansible_shell_executable
 ```
 
+## Ad-hoc команды
+для быстрых фиксов, без написания playbook 
+```
+ansible -i hosts -m user -a "name=alaricode state=present" all
+          |         |                  |                    |
+передаем хост       |                  |                    |
+                    модуль             |                    |
+                                   аргументы                |
+                                                        указание хостов
+```
+
+Модули сервиса
+
+```
+ansible webservers -m service -a "name=httpd state=started"
+ansible webservers -m command -a "/sbin/reboot -t now"
+```
